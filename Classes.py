@@ -35,5 +35,19 @@ class ContaCorrente(ContaBancaria):
                 self._saldo -= valor 
                 print(f'Saque de R${valor:.2} realizado. Saldo atual: R${self._saldo}.')
 
+class OperacoesBancarias:
+    def transferencia(self, conta_origem, conta_destino, valor):
+        if conta_origem._saldo >= valor:
+            conta_origem._saldo -= valor
+            conta_destino._saldo += valor
+            print(f'Transferencia R${valor:.2f} realizada com sucesso')
+        else:
+            print("Você não tem saldo para realizar a transferência.")
   
+class ContaInvestimento:
+    def investir(self, valor):
+        print(f'Investido R${valor:.2f} no fundo de investimento.')
 
+class ContaPremium(ContaBancaria, OperacoesBancarias, ContaInvestimento):
+    def __init__(self, titular, saldo):
+        super().__init__(titular, saldo)
